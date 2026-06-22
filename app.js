@@ -34,12 +34,10 @@
      PRELOADER logo: real ELT emblem (white) + wordmark
      ==================================================================== */
   var plLogo = document.getElementById("pl-logo");
-  if (plLogo) {
-    // Clean ELT text wordmark (no image, no shadow). The supplied logo file is a
-    // wrong-brand placeholder, so the mark is set in type until a real ELT logo
-    // lands. No upscale blur, no scrim halo.
+  if (plLogo && !plLogo.querySelector("img")) {
+    // Real Ethical Leaf Tobacco emblem, extracted from their live site.
     plLogo.innerHTML =
-      '<span class="pl-wordmark"><span class="plw-mark">ELT</span><span class="plw-name">Ethical Leaf Tobacco</span></span>';
+      '<img src="assets/img/elt-logo.png" alt="Ethical Leaf Tobacco">';
   }
 
   /* ====================================================================
