@@ -825,17 +825,17 @@
     if (form) {
       form.addEventListener("submit", function (e) {
         e.preventDefault();
-        if (ok) ok.style.display = "none";
-        if (err) err.style.display = "none";
+        if (ok) ok.classList.remove("success");
+        if (err) err.classList.remove("error");
         var name = form.querySelector('[name="fullname"]');
         var phone = form.querySelector('[name="phone"]');
         if (!name.value.trim() || !phone.value.trim()) {
-          if (err) { err.textContent = "Please add your name and phone so we can reach you."; err.style.display = "block"; }
+          if (err) { err.textContent = "Please add your name and phone so we can reach you."; err.classList.add("error"); }
           return;
         }
         // no backend in this demo build; show success
         form.querySelectorAll("input, select, button").forEach(function (f) { f.setAttribute("disabled", "true"); });
-        if (ok) ok.style.display = "block";
+        if (ok) ok.classList.add("success");
       });
     }
   }
@@ -945,16 +945,17 @@
     var err = document.getElementById("cf-error");
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      if (ok) ok.style.display = "none";
-      if (err) err.style.display = "none";
+      // banners are hidden at rest (no state class); toggle the class on submit
+      if (ok) ok.classList.remove("success");
+      if (err) err.classList.remove("error");
       var name = form.querySelector('[name="fullname"]');
       var phone = form.querySelector('[name="phone"]');
       if (!name.value.trim() || !phone.value.trim()) {
-        if (err) { err.textContent = "Please add your name and phone so we can reach you."; err.style.display = "block"; }
+        if (err) { err.textContent = "Please add your name and phone so we can reach you."; err.classList.add("error"); }
         return;
       }
       form.querySelectorAll("input, textarea, button").forEach(function (f) { f.setAttribute("disabled", "true"); });
-      if (ok) ok.style.display = "block";
+      if (ok) ok.classList.add("success");
     });
   }
 

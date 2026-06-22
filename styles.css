@@ -568,8 +568,8 @@ section { position: relative; }
   display: flex; flex-direction: column; align-items: center; cursor: pointer;
   z-index: 2;
 }
-.region-pin .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--leaf-3); border: 2px solid var(--cream); box-shadow: 0 0 0 0 rgba(89,106,51,0.5); }
-.region-pin.active .dot, .region-pin:focus-visible .dot { box-shadow: 0 0 0 6px rgba(89,106,51,0.25); }
+.region-pin .dot { width: 13px; height: 13px; border-radius: 50%; background: var(--gold); border: 2px solid var(--cream); box-shadow: 0 0 0 0 rgba(200,162,60,0.6); }
+.region-pin.active .dot, .region-pin:focus-visible .dot { box-shadow: 0 0 0 6px rgba(200,162,60,0.30); }
 .region-pin .label {
   position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
   background: var(--ink); color: var(--cream); padding: 0.5em 0.8em; border-radius: 8px;
@@ -629,7 +629,7 @@ section { position: relative; }
 .team-tile { border-radius: 14px; overflow: hidden; aspect-ratio: 3/4; position: relative; background: linear-gradient(160deg, var(--gold) 0%, #a07e22 100%); }
 .team-tile img { width: 100%; height: 100%; object-fit: cover; }
 .team-tile .monogram { position: absolute; inset: 0; display: grid; place-items: center; font-family: "Kalnia", serif; font-size: clamp(2.4rem, 12vw, 4.5rem); color: var(--ink-deep); font-weight: 600; }
-.team-tile .meta { position: absolute; left: 0; right: 0; bottom: 0; padding: 1rem; background: linear-gradient(0deg, rgba(31,37,9,0.92) 0%, rgba(31,37,9,0) 100%); color: var(--cream); }
+.team-tile .meta { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.4rem 1rem 1rem; background: linear-gradient(0deg, rgba(20,24,6,0.95) 0%, rgba(20,24,6,0.80) 30%, rgba(20,24,6,0.32) 68%, rgba(20,24,6,0) 100%); color: var(--cream); text-shadow: 0 1px 10px rgba(0,0,0,0.55); }
 .team-tile .meta .nm { font-family: "Kalnia", serif; font-size: var(--t-22); }
 .team-tile .meta .rl { font-family: "SUSE Mono", monospace; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; margin-top: 0.2rem; }
 
@@ -928,9 +928,13 @@ section { position: relative; }
 .page-hero .ph-media img { width: 100%; height: 100%; object-fit: cover; }
 .page-hero::after {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(20,24,6,0.62) 0%, rgba(20,24,6,0.22) 38%, rgba(20,24,6,0.86) 100%);
+  /* bottom-weighted scrim: copy sits at the bottom (flex-end), so the lower
+     half must stay dark enough to read cream type even over the bright Gold
+     Class leaf photo, while the top stays airy. */
+  background: linear-gradient(180deg, rgba(20,24,6,0.55) 0%, rgba(20,24,6,0.20) 24%, rgba(20,24,6,0.58) 56%, rgba(20,24,6,0.90) 100%);
 }
 .page-hero .wrap { width: 100%; }
+.ph-eyebrow, .ph-title, .ph-sub { text-shadow: 0 2px 22px rgba(20,24,6,0.55); }
 .ph-eyebrow {
   font-family: "SUSE Mono", monospace; text-transform: uppercase; letter-spacing: 0.22em;
   font-size: 0.7rem; color: var(--gold); display: inline-flex; align-items: center; gap: 0.7em; margin-bottom: 1.2rem;
@@ -958,8 +962,13 @@ section { position: relative; }
 .band-green::before { display: none; }
 .band-green > .wrap { position: relative; z-index: 1; }
 .band-ink { background: var(--ink-deep); color: var(--cream); }
-.band-head { max-width: 22ch; }
-.band-head .display { font-family: "Kalnia", serif; font-size: var(--t-71); line-height: 1.0; }
+/* FIX 2026-06-22: the 22ch cap was measured against the ~16px base font
+   (~185px), so it crushed the entire heading block and the big display heading
+   inside broke mid-word ("What ELT carrie/s", "Send a / messa/ge"). Don't clamp
+   the block; set each child's measure at its OWN font so headings get a clean
+   one-to-two-line ragged and intros keep a proper reading measure. */
+.band-head { max-width: none; }
+.band-head .display { font-family: "Kalnia", serif; font-size: var(--t-71); line-height: 1.0; max-width: 20ch; }
 .band-head p, .band-lead { font-size: var(--t-18); color: var(--ink-soft); margin-top: 1.2rem; max-width: 54ch; }
 .band-green .band-head p, .band-ink .band-head p { color: rgba(244,237,230,0.82); }
 @media (min-width: 768px) { .band { padding: 7rem 0; } }
