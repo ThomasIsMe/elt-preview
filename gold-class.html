@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js inner-page">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gold Class scheme | Ethical Leaf Tobacco</title>
+<meta name="description" content="ELT's $660m Gold Class inputs scheme, four tiers scaled to what you produce. Check your tier in seconds and see the input package it unlocks.">
+<link rel="icon" href="assets/img/elt-favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@300;400;500;600&family=Zalando+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=SUSE+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/lib/splide.min.css">
+<link rel="stylesheet" href="styles.css?v=r12">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gold Class scheme | Ethical Leaf Tobacco">
+<meta property="og:description" content="ELT's $660m Gold Class inputs scheme, four tiers scaled to what you produce. Check your tier in seconds.">
+<meta property="og:url" content="https://elt.co.zw/gold-class.html">
+<meta property="og:image" content="https://elt.co.zw/assets/img/hero.jpg">
+<meta property="og:site_name" content="Ethical Leaf Tobacco">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://elt.co.zw/gold-class.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Ethical Leaf Tobacco","legalName":"Ethical Holdings (Pvt) Ltd","url":"https://elt.co.zw","foundingDate":"2015","slogan":"Kutengesa neHungwaru","description":"Agri-finance and contract farming that finances smallholder tobacco farmers across Zimbabwe from the seed bed to the auction floor.","address":{"@type":"PostalAddress","streetAddress":"161 Gleneagles Rd, Willovale","addressLocality":"Harare","addressCountry":"ZW"},"telephone":"+263-242-620290-2","email":"publicrelations@elt.co.zw","areaServed":"Zimbabwe"}
+</script>
+</head>
+<body>
+
+<div id="ground" aria-hidden="true">
+  <div class="ground-fallback"></div>
+  <canvas id="hero-gradient"></canvas>
+</div>
+
+<div id="preloader" aria-hidden="true">
+  <div class="pl-layer l1"></div>
+  <div class="pl-layer l2"></div>
+  <div class="pl-layer l3"></div>
+  <div class="pl-logo" id="pl-logo"></div>
+  <div class="pl-bar" id="pl-bar"></div>
+</div>
+
+<header class="nav-wrap" id="nav">
+  <div class="nav-left">
+    <button class="menu-btn" id="menu-open" aria-label="Open menu">
+      <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="text-14-caps">Menu</span>
+    </button>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="services.html">Services</a>
+      <a href="gold-class.html">Gold Class</a>
+      <a href="about.html">About</a>
+      <a href="impact.html">Impact</a>
+    </nav>
+  </div>
+  <a class="wordmark-nav" href="index.html" aria-label="Ethical Leaf Tobacco home">ELT</a>
+  <div class="nav-right">
+    <a class="contact-wrap" href="contact.html">
+      <span class="text-14-caps">Contact us</span>
+      <span class="underline"></span>
+    </a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO VARIANT: gold-leaning band -->
+<section class="page-hero">
+  <div class="ph-media">
+    <picture>
+      <source type="image/webp" srcset="assets/img/webp/g1.webp">
+      <img src="assets/img/g1.jpg" alt="Cured golden tobacco leaf, Gold Class grade" loading="eager" decoding="async">
+    </picture>
+  </div>
+  <div class="wrap">
+    <p class="ph-eyebrow">A $660m inputs scheme</p>
+    <h1 class="ph-title" text-split>Gold Class. Scaled to what you grow.</h1>
+    <p class="ph-sub">ELT's flagship input facility splits into four tiers by the kilograms a farmer produces, so the support always matches the crop. The more you grow, the more the cycle carries.</p>
+    <div class="ph-rail">
+      <div class="ri"><span class="v">$660m</span><span class="l">total input facility</span></div>
+      <div class="ri"><span class="v">4</span><span class="l">tiers, by yield</span></div>
+      <div class="ri"><span class="v">60s</span><span class="l">to check your tier</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- THE CALCULATOR (the demoed value-prop slice) -->
+<section id="calc" class="band band-cream">
+  <div class="wrap">
+    <div class="band-head">
+      <p class="eyebrow" style="color:var(--leaf-3)">The ELT Farmer Layer &middot; live tool</p>
+      <h2 class="display" text-split>Check your Gold Class tier</h2>
+      <p>Enter your expected yield and we will show your tier, the input package it unlocks, and an indicative working-capital band, then drop you straight into an application. No office visit, no waiting.</p>
+    </div>
+    <div class="calc-wrap">
+      <form class="calc-panel" id="gc-calc" novalidate>
+        <h3>Your season</h3>
+        <p class="calc-intro">Your numbers stay on this device. This is an estimate to start the conversation, not a financing guarantee.</p>
+        <div class="calc-field">
+          <label for="gc-kg">Expected yield this season (kg)</label>
+          <input type="number" id="gc-kg" name="kg" min="0" step="50" placeholder="e.g. 800" required>
+          <p class="calc-note">Gold 1,000kg+ &middot; Diamond 700kg &middot; Silver 500kg &middot; Bronze under 500kg</p>
+        </div>
+        <div class="calc-row">
+          <div class="calc-field">
+            <label for="gc-region">Region</label>
+            <select id="gc-region" name="region">
+              <option>Mashonaland Central</option><option>Mashonaland West</option><option>Mashonaland East</option>
+              <option>Manicaland</option><option>Midlands</option><option>Karoi / Hurungwe</option><option>Bindura</option><option>Marondera</option><option>Other</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label for="gc-type">Tobacco</label>
+            <select id="gc-type" name="type"><option>Flue-cured Virginia</option><option>Burley</option><option>Dark fire-cured</option><option>Other</option></select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-solid" style="width:100%"><span class="lbl">Show my tier</span>
+          <svg class="arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+      </form>
+      <div class="calc-result" id="gc-result" aria-live="polite">
+        <div class="cr-empty"><span class="mono">Your result</span>Enter your expected yield and tap "Show my tier". We will place you on the Gold Class ladder and list the inputs that tier unlocks.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE FOUR TIERS -->
+<section class="band band-green">
+  <div class="wrap">
+    <div class="band-head">
+      <h2 class="display" text-split>Four tiers, one scheme</h2>
+      <p>Every tier carries the farmer; the package scales with the crop. Tiers are set by ELT's own published thresholds.</p>
+    </div>
+    <div class="tier-grid">
+      <article class="tier-card gold" data-reveal><div class="tc-name">Gold</div><div class="tc-kg">1,000 kg and above</div><p class="tc-desc">The full package: seed bed, land pack, curing fuel, packaging, priority logistics, a dedicated extension officer and microinsurance.</p></article>
+      <article class="tier-card diamond" data-reveal><div class="tc-name">Diamond</div><div class="tc-kg">700 kg</div><p class="tc-desc">Seed bed, land pack, working capital, extension support and microinsurance cover for a strong commercial season.</p></article>
+      <article class="tier-card silver" data-reveal><div class="tc-name">Silver</div><div class="tc-kg">500 kg</div><p class="tc-desc">Seed bed, core chemicals and fertilizer, working capital and on-the-ground extension support.</p></article>
+      <article class="tier-card bronze" data-reveal><div class="tc-name">Bronze</div><div class="tc-kg">Under 500 kg</div><p class="tc-desc">A starter package: seed bed, essential inputs and extension support to build a first or smaller season.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT REACHES THE FARMER: WhatsApp/USSD (proposed, surfaced) -->
+<section class="band band-cream">
+  <div class="wrap">
+    <div class="band-head">
+      <h2 class="display" text-split>On the phone the farmer actually has</h2>
+      <p>Most growers are on a feature phone with little data. So the same tier check runs on the channels that reach them. The calculator above is the front door; these carry it the last mile.</p>
+    </div>
+    <div class="layer-grid" style="margin-top:2.4rem">
+      <div class="vmv-card"><h3>WhatsApp</h3><p>Tap, send your yield, get your tier and apply, all in a chat. <span class="layer-note" style="color:var(--ink-soft)">Live deep link from the result above.</span></p></div>
+      <div class="vmv-card"><h3>USSD short code</h3><p>No data, no smartphone. Dial a short code, key in your numbers, qualify from any handset. <span class="layer-note" style="color:var(--ink-soft)">Proposed build-out.</span></p></div>
+      <div class="vmv-card green"><h3>SMS updates</h3><p>Season milestones and payout alerts pushed by text, so the farmer always knows what comes next. <span class="layer-note">Proposed build-out.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="s-cta" class="band-green">
+  <div class="wrap cta-inner">
+    <h2 class="display" text-split>Know your tier. Then grow into it.</h2>
+    <p class="cta-lead">The leaf decides the tier.</p>
+    <p>Check where this season puts you, see the package it unlocks, and start an application in minutes.</p>
+    <div class="cta-buttons">
+      <a class="btn btn-gold" href="#calc"><span class="lbl">Run the tier check</span>
+        <svg class="arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+      </a>
+      <a class="btn btn-transparent on-dark" href="contact.html"><span class="lbl">Talk to our team</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="s-footer">
+  <div class="wrap">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h5>The cycle</h5>
+        <a href="services.html">Seed bed package</a>
+        <a href="services.html">Inputs &amp; fertilizers</a>
+        <a href="services.html">Working capital</a>
+        <a href="services.html">Tobacco marketing</a>
+      </div>
+      <div class="footer-col">
+        <h5>Finance</h5>
+        <a href="gold-class.html">Gold Class scheme</a>
+        <a href="gold-class.html#calc">Check your tier</a>
+        <a href="services.html">Microinsurance</a>
+        <a href="services.html">Extension services</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="about.html">About ELT</a>
+        <a href="impact.html">Impact &amp; news</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col footer-contact">
+        <h5>Contact</h5>
+        <p class="fc-q display">Have a question about financing?</p>
+        <p>Reach the ELT team:</p>
+        <a class="fc-mail" href="mailto:publicrelations@elt.co.zw">PUBLICRELATIONS@ELT.CO.ZW</a>
+        <p class="footer-address">161 Gleneagles Rd, Willovale, Harare.<br>+263-242-620290-2</p>
+      </div>
+    </div>
+    <div class="footer-brand">
+      <span class="footer-wordmark">
+        <span class="fw-mark">ELT</span>
+        <span class="fw-name">Ethical Leaf Tobacco</span>
+      </span>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Ethical Leaf Tobacco. Ethical Holdings (Pvt) Ltd.</span>
+      <span>Africa's agribusiness unicorn</span>
+      <span>kutengesa neHungwaru</span>
+    </div>
+  </div>
+</footer>
+<nav class="menu-side-bar" id="menu-side-bar" aria-hidden="true">
+  <div class="menu-top">
+    <a class="wordmark-nav" href="index.html" aria-label="Ethical Leaf Tobacco home">ELT</a>
+    <button class="menu-close" id="menu-close"><span>Close</span><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="menu-nav">
+    <div class="menu-group">
+      <a class="mg-head mg-link" href="services.html">Services <span class="mg-plus mg-arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="menu-group">
+      <a class="mg-head mg-link" href="gold-class.html">Gold Class <span class="mg-plus mg-arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="menu-group">
+      <a class="mg-head mg-link" href="about.html">About <span class="mg-plus mg-arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="menu-group">
+      <a class="mg-head mg-link" href="impact.html">Impact <span class="mg-plus mg-arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="menu-group">
+      <a class="mg-head mg-link" href="contact.html">Contact <span class="mg-plus mg-arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+  <div class="menu-foot">
+    <span class="tagline">kutengesa neHungwaru</span>
+    <button class="btn btn-gold" data-apply style="align-self:flex-start"><span class="lbl">partner with us</span></button>
+  </div>
+</nav>
+<div class="apply-form" id="apply-form" aria-hidden="true">
+  <div class="apply-panel" data-lenis-prevent>
+    <div class="apply-top">
+      <div>
+        <h3>Apply for ELT Farmer Financing, 2027 Season</h3>
+        <p class="apply-intro">Financing for smallholder tobacco growers across Zimbabwe.</p>
+      </div>
+      <button class="apply-close" id="apply-close" aria-label="Close form">&times;</button>
+    </div>
+    <form id="elt-form" novalidate>
+      <div class="field"><label>Full name</label><input type="text" name="fullname" required></div>
+      <div class="field"><label>Farm name</label><input type="text" name="farmname"></div>
+      <div class="field"><label>Your phone</label><input type="tel" name="phone" required></div>
+      <div class="field"><label>Farm location</label><input type="text" name="location"></div>
+      <div class="field"><label>Region</label>
+        <select name="region">
+          <option>Mashonaland Central</option><option>Mashonaland West</option><option>Mashonaland East</option>
+          <option>Manicaland</option><option>Midlands</option><option>Masvingo</option>
+          <option>Matabeleland North</option><option>Matabeleland South</option>
+          <option>Karoi</option><option>Hurungwe</option><option>Bindura</option><option>Marondera</option><option>Other</option>
+        </select>
+      </div>
+      <div class="field"><label>Tobacco type</label>
+        <select name="type"><option>Flue-cured Virginia</option><option>Oriental</option><option>Dark fire-cured</option><option>Mixed / other</option></select>
+      </div>
+      <div class="field"><label>Grower profile</label>
+        <select name="profile"><option>First-season grower</option><option>Commercial estate</option><option>Other</option></select>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Hectares</label><input type="number" name="hectares" min="0" step="0.5"></div>
+        <div class="field"><label>Units</label><select name="units"><option>hectares</option><option>acres</option></select></div>
+      </div>
+      <div class="field"><label>Timing</label>
+        <select name="timing"><option>Spring 2026</option><option>Summer 2026</option><option>Fall 2026</option><option>Winter 2027</option><option>Already growing</option><option>Other timing</option></select>
+      </div>
+      <div class="field"><label>Current financing arrangement</label>
+        <select name="financing"><option>Self-financed</option><option>Contract grower</option><option>Bank / microfinance loan</option><option>Family / informal lending</option><option>No financing in place</option><option>First season</option><option>Other</option></select>
+      </div>
+      <p class="apply-disclaimer">Submitting this form does not guarantee financing. We review each application to balance regional capacity and grower readiness.</p>
+      <button type="submit" class="btn btn-solid apply-submit"><span class="lbl">Submit application</span></button>
+      <div class="apply-msg success" id="apply-success">Thank you, your application is in. Our team will be in touch soon.</div>
+      <div class="apply-msg error" id="apply-error">Oops, something went wrong while submitting the form.</div>
+    </form>
+  </div>
+</div>
+
+<script src="assets/lib/gsap.min.js"></script>
+<script src="assets/lib/ScrollTrigger.min.js"></script>
+<script src="assets/lib/SplitText.min.js"></script>
+<script src="assets/lib/splide.min.js"></script>
+<script src="app.js?v=r12"></script>
+
+</body>
+</html>
