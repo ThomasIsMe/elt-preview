@@ -30,15 +30,8 @@
     return a;
   }
 
-  /* ====================================================================
-     PRELOADER logo: real ELT emblem (white) + wordmark
-     ==================================================================== */
-  var plLogo = document.getElementById("pl-logo");
-  if (plLogo && !plLogo.querySelector("img")) {
-    // Real Ethical Leaf Tobacco emblem, extracted from their live site.
-    plLogo.innerHTML =
-      '<img src="assets/img/elt-logo.png" alt="Ethical Leaf Tobacco">';
-  }
+  /* PRELOADER mark is now a type-set ELT wordmark in the markup (no injected
+     image); the clean fade-in is handled in runPreloader + CSS. */
 
   /* ====================================================================
      LENIS smooth scroll, synced to GSAP ticker (single RAF source)
@@ -859,17 +852,12 @@
         if (hasST) ScrollTrigger.refresh();
       }, 750);
     }
-    if (hasGSAP && !reduceMotion) {
-      var tl = gsap.timeline({ onComplete: finish });
-      if (bar) tl.to(bar, { width: "100%", duration: 1.1, ease: "power2.inOut" }, 0);
-      tl.from(pre.querySelector(".pl-logo"), { y: 24, autoAlpha: 0, duration: 0.7, ease: "power2.out" }, 0.1);
-      tl.to([".pl-layer.l3", ".pl-layer.l2", ".pl-layer.l1"], { scaleY: 0, transformOrigin: "bottom", duration: 0.6, stagger: 0.12, ease: "power3.inOut" }, 0.9);
-    } else {
-      setTimeout(finish, 600);
-    }
-    // hard failsafe: never trap the page
-    window.addEventListener("load", function () { setTimeout(finish, 1800); });
-    setTimeout(finish, 4000);
+    // The intro (wordmark fade-in + gold line fill) is pure CSS, playing on
+    // render. JS only fades the panel out on a fixed timer once the intro has
+    // played, so there is no animation-completion event to miss.
+    var hold = reduceMotion ? 500 : 1600;
+    setTimeout(finish, hold);
+    setTimeout(finish, 4000); // hard safety; the `done` guard makes it a no-op
   }
 
   /* ====================================================================
