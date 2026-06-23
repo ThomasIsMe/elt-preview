@@ -72,24 +72,12 @@
      SplitText is available, and always guarantee final visibility.
      ==================================================================== */
   function setupSplitReveals() {
-    // Calm whole-line reveal: a gentle fade + small rise of the WHOLE heading.
-    // No per-character scatter (Thomas 2026-06-23 disliked the letter-by-letter).
-    // Content is visible at rest when motion is off or JS is degraded.
-    if (!hasGSAP || !hasST || reduceMotion) return;
-    gsap.utils.toArray("[text-split]").forEach(function (el) {
-      gsap.fromTo(el,
-        { y: 16, autoAlpha: 0 },
-        {
-          y: 0, autoAlpha: 1, duration: 0.55, ease: "power2.out",
-          scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" }
-        });
-    });
-    // last-resort net: never leave a heading hidden if a trigger never fires
-    setTimeout(function () {
-      document.querySelectorAll("[text-split]").forEach(function (el) {
-        if (parseFloat(getComputedStyle(el).opacity || "1") < 1) gsap.set(el, { autoAlpha: 1, y: 0 });
-      });
-    }, 3500);
+    // Headings render STATICALLY, no scroll reveal. Thomas 2026-06-23: the
+    // letter-by-letter and then the whole-line fade both read glitchy on scroll
+    // (the text shows, then jumps into the animation). Clean and stable wins;
+    // the page keeps its motion in the living ground, the carousel, and the
+    // interactions. Left as a no-op so the boot() call site stays stable.
+    return;
   }
 
   /* generic data-reveal: visible rise + soft scale, plays on enter, rewinds on
