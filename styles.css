@@ -1164,3 +1164,25 @@ section { position: relative; }
 
 /* page-specific overlap reset: inner pages don't have the home sticky hero */
 .inner-page #ground { z-index: 0; }
+
+/* ===================================================================
+   MEET band (2026-06-23): static full-bleed photo section that replaced
+   the scroll-scrub video. Opaque image covers the fixed ground; cream copy
+   sits bottom-left over a dark scrim. No animation.
+   =================================================================== */
+.meet {
+  position: relative; z-index: 3; isolation: isolate;
+  min-height: 78svh; display: flex; align-items: flex-end; overflow: hidden;
+  color: var(--cream); padding: 7rem var(--gutter) 4rem;
+}
+.meet .meet-media { position: absolute; inset: 0; z-index: -2; }
+.meet .meet-media img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.meet::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(20,24,6,0.55) 0%, rgba(20,24,6,0.28) 38%, rgba(20,24,6,0.80) 100%);
+}
+.meet-inner { max-width: 600px; }
+.meet-inner .eyebrow { color: var(--gold); margin-bottom: 1.2rem; }
+.meet-inner h2 { font-family: "Kalnia", serif; font-weight: 500; font-size: var(--t-71); line-height: 1.02; }
+.meet-inner p { font-size: var(--t-18); line-height: 1.55; color: rgba(244,237,230,0.9); margin: 1.2rem 0 1.8rem; max-width: 52ch; }
+@media (min-width: 768px) { .meet { min-height: 82svh; padding: 9rem var(--gutter) 5rem; } }
