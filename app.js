@@ -13,6 +13,11 @@
   var isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
   var isDesktop = window.matchMedia("(min-width: 768px)").matches;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Slow/metered link or Data Saver: used to gate heavy frame-sequence preloads.
+  function lowData() {
+    var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    return !!(c && (c.saveData || /(slow-2g|2g|3g)/.test(c.effectiveType || "")));
+  }
 
   if (hasGSAP && hasST) gsap.registerPlugin(ScrollTrigger);
   if (hasGSAP && hasSplit) gsap.registerPlugin(SplitText);
@@ -67,59 +72,24 @@
      SplitText is available, and always guarantee final visibility.
      ==================================================================== */
   function setupSplitReveals() {
-    if (!hasGSAP || !hasST || !hasSplit || reduceMotion) return;
-    document.querySelectorAll("[text-split]").forEach(function (el) {
-      // keep a clean copy in case we revert
-      var split;
-      try { split = new SplitText(el, { type: "chars,words,lines" }); }
-      catch (err) { return; }
-      // Build the random-scatter reveal as a paused timeline. Chars start
-      // invisible AND dropped/blurred so the scatter is genuinely visible,
-      // not a faint cross-fade.
-      var tl = gsap.timeline({ paused: true });
-      gsap.set(split.chars, { autoAlpha: 0, yPercent: 60, rotateZ: function () { return gsap.utils.random(-14, 14); }, filter: "blur(6px)" });
-      tl.to(split.chars, {
-        autoAlpha: 1, yPercent: 0, rotateZ: 0, filter: "blur(0px)",
-        duration: 0.62, ease: "power3.out",
-        stagger: { each: 0.022, from: "random" }
-      });
-      el._splitInstance = split;
-      el._splitTimeline = tl;
-
-      // The ScrollTrigger IS the reveal driver. onEnter plays it the moment the
-      // heading scrolls into view; onLeaveBack rewinds so it replays on the way
-      // back up. No blind global timer, so nothing below the fold pre-reveals.
-      ScrollTrigger.create({
-        trigger: el,
-        start: "top 88%",
-        onEnter: function () { tl.play(); },
-        onLeaveBack: function () { tl.pause(0); }
-      });
-
-      // Safety net for headings ALREADY in view at load (e.g. the hero): play
-      // the reveal, and if the animation-frame loop is throttled/stalled so the
-      // timeline hasn't finished shortly after, force it to its end-state so the
-      // hero text is never left ghosted. Below-fold headings are untouched here.
-      requestAnimationFrame(function () {
-        var r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight * 0.92 && r.bottom > 0) {
-          tl.play();
-          setTimeout(function () { if (tl.progress() < 1) tl.progress(1); }, 1500);
-        }
-      });
+    // Calm whole-line reveal: a gentle fade + small rise of the WHOLE heading.
+    // No per-character scatter (Thomas 2026-06-23 disliked the letter-by-letter).
+    // Content is visible at rest when motion is off or JS is degraded.
+    if (!hasGSAP || !hasST || reduceMotion) return;
+    gsap.utils.toArray("[text-split]").forEach(function (el) {
+      gsap.fromTo(el,
+        { y: 16, autoAlpha: 0 },
+        {
+          y: 0, autoAlpha: 1, duration: 0.55, ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" }
+        });
     });
-    // Absolute last-resort net: anything whose trigger has passed but never
-    // revealed gets snapped to its end-state. Short timeout so text never
-    // lingers hidden in a degraded environment.
+    // last-resort net: never leave a heading hidden if a trigger never fires
     setTimeout(function () {
       document.querySelectorAll("[text-split]").forEach(function (el) {
-        var tl = el._splitTimeline;
-        if (!tl) return;
-        var r = el.getBoundingClientRect();
-        var passedTop = r.bottom < window.innerHeight;
-        if (passedTop && tl.progress() < 1) tl.progress(1);
+        if (parseFloat(getComputedStyle(el).opacity || "1") < 1) gsap.set(el, { autoAlpha: 1, y: 0 });
       });
-    }, 4000);
+    }, 3500);
   }
 
   /* generic data-reveal: visible rise + soft scale, plays on enter, rewinds on
@@ -490,33 +460,34 @@
     setSize();
     window.addEventListener("resize", function () { setSize(); draw(Math.round(frameObj.frame)); });
 
-    // Only reduced-motion users get a static frame; everyone else (mobile AND
-    // desktop) gets the scroll-scrub. Frames are kept light for mobile data.
-    if (reduceMotion) {
-      var mid = Math.floor(total / 2);
-      var im = new Image();
-      im.onload = function () { images[mid] = im; canvas.style.opacity = "1"; frameObj.frame = mid; draw(mid); };
-      im.onerror = function () { /* fallback bg stays visible */ };
-      im.src = urls[mid];
-      return;
-    }
+    // Mobile, slow/metered links, Data Saver, and reduced-motion skip the
+    // 117-frame scrub ENTIRELY. The CSS poster (.fallback-frame) shows behind
+    // the transparent canvas, so ZERO frame requests fire on the connections
+    // that cannot afford them. This was choking mobile data (237 frame requests
+    // flooding the link). Desktop on a good connection keeps the scrub, and even
+    // then the frames load lazily, only when the section nears.
+    if (reduceMotion || isTouch || lowData()) return;
 
-    // desktop: preload all then scrub
-    var loaded = 0, failed = 0;
-    urls.forEach(function (url, i) {
-      var img = new Image();
-      img.onload = function () { images[i] = img; loaded++; ready(); };
-      img.onerror = function () { failed++; ready(); };
-      img.src = url;
-    });
-    var started = false;
-    function ready() {
-      if (started) return;
-      if (loaded + failed >= total) start();
+    var loaded = 0, failed = 0, started = false, preloadStarted = false;
+    function ready() { if (started) return; if (loaded + failed >= total) start(); }
+    function preload() {
+      if (preloadStarted) return; preloadStarted = true;
+      urls.forEach(function (url, i) {
+        var img = new Image();
+        img.onload = function () { images[i] = img; loaded++; ready(); };
+        img.onerror = function () { failed++; ready(); };
+        img.src = url;
+      });
+      // start scrubbing as soon as a handful are in (draws nearest-loaded)
+      setTimeout(function () { if (!started && loaded > 4) start(); }, 2200);
     }
-    // failsafe: start scrubbing as soon as a handful of frames are in, so it
-    // never sits blank waiting on the full preload (draws nearest-loaded).
-    setTimeout(function () { if (!started && loaded > 4) start(); }, 2200);
+    // lazy: only begin downloading frames when the capsule is within ~1.5 screens
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { io.disconnect(); preload(); }
+      }, { rootMargin: "150% 0px 150% 0px" });
+      io.observe(capsule);
+    } else { preload(); }
 
     function start() {
       started = true;
@@ -593,6 +564,16 @@
       dropBox.style.height = (DROP_START_EM * (1 - progress)) + "em";
     }
     setDisabled(true);
+
+    // Mobile, slow/metered links, Data Saver, reduced-motion: skip the 120-frame
+    // grow sequence. The CSS poster (.plant-stage .fallback-frame) shows behind
+    // the canvas; hide the grow controls so there is no dead button. Zero frame
+    // requests on the connections that were choking.
+    if (reduceMotion || isTouch || lowData()) {
+      var gc = document.querySelector(".grow-controls");
+      if (gc) gc.style.display = "none";
+      return;
+    }
 
     var loaded = 0, failed = 0, started = false;
     urls.forEach(function (url, i) {
